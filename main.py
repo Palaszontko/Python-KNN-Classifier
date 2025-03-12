@@ -72,4 +72,24 @@ class KNN:
             self.getInput()
 
         return correctResults / totalResults * 100
+    def getInput(self):
+        print("Type 'exit' to exit")
+        while True:
+            print("Enter a sample to test: ")
+            sample = input().split(';')
+
+            if 'exit' in "".join(sample):
+                break
+            elif len(sample) != len(self.trainData[0].vector):
+                print("Invalid sample")
+                continue
+            elif any(c.isalpha() for c in "".join(sample)):
+                print("Invalid sample: contains letters")
+                continue
+
+            sample = Sample('', [float(x) for x in sample])
+            kClosestGroups = self.getKClosest(sample.vector)
+            closestDataTags = {x.dataTag : sum(1 for item in kClosestGroups if item.dataTag == x.dataTag) for x in kClosestGroups}
+            print(f"{'\033[92m'}{sample.dataTag} {'\033[95m'}{max(closestDataTags)}{'\033[0m'}")
+
 if __name__ == "__main__":
