@@ -19,12 +19,15 @@ class CalculatedSample:
     def __str__(self):
         return f"Data Tag: {self.dataTag}, Vectors: {self.vector}, Distance: {self.distance}"
     
+
 class KNN:
     trainData = []
+
     def __init__(self, k : int, trainingDataPath : str, testDataPath : str):
         self.k = k
         self.trainingDataPath = trainingDataPath
         self.testDataPath = testDataPath
+
     def euclidianDis(A, B): 
         if len(A) != len(B):
             raise ValueError("Vectors must have the same length")
@@ -43,6 +46,7 @@ class KNN:
         sortedSamples = sorted(calculatedSamples, key=lambda x: x.distance)
 
         return sortedSamples[:self.k]
+    
     def loadCsv(self, path : str) -> list:
         samples = []
         try:
@@ -58,6 +62,7 @@ class KNN:
             print(f"Error: {e}")
             sys.exit(1)
         return samples
+
     def start(self, getInput : bool) -> float:
         self.trainData = self.loadCsv(self.trainingDataPath)
 
@@ -78,6 +83,7 @@ class KNN:
             self.getInput()
 
         return correctResults / totalResults * 100
+    
     def getInput(self):
         print("Type 'exit' to exit")
         while True:
