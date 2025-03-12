@@ -19,6 +19,24 @@ class KNN:
         self.k = k
         self.trainingDataPath = trainingDataPath
         self.testDataPath = testDataPath
+    def euclidianDis(A, B): 
+        if len(A) != len(B):
+            raise ValueError("Vectors must have the same length")
+        dis = 0 
+        for i in range(len(A)):
+            dis +=  math.pow(A[i] - B[i], 2)
+        return math.sqrt(dis)
+    
+    def getKClosest(self, V : list) -> dict:
+        calculatedSamples = []
+
+        for sample in self.trainData:
+            dis = KNN.euclidianDis(V, sample.vector)
+            calculatedSamples.append(CalculatedSample(sample.dataTag, sample.vector, dis))
+
+        sortedSamples = sorted(calculatedSamples, key=lambda x: x.distance)
+
+        return sortedSamples[:self.k]
     def loadCsv(self, path : str) -> list:
         samples = []
         try:
