@@ -52,5 +52,24 @@ class KNN:
             print(f"Error: {e}")
             sys.exit(1)
         return samples
+    def start(self, getInput : bool) -> float:
+        self.trainData = self.loadCsv(self.trainingDataPath)
 
+        correctResults = 0
+        totalResults = 0
+
+        for sample in self.loadCsv(self.testDataPath):
+            kClosestGroups = self.getKClosest(sample.vector)
+            closestDataTags = {x.dataTag : sum(1 for item in kClosestGroups if item.dataTag == x.dataTag) for x in kClosestGroups}
+            print(f"{'\033[92m'}{sample.dataTag} {'\033[95m'}{max(closestDataTags)}{'\033[0m'}")
+
+            if sample.dataTag == max(closestDataTags):
+                correctResults += 1
+            totalResults += 1
+
+        print(f"Accuracy = {round(correctResults / totalResults * 100, 3)}%")
+        if getInput:
+            self.getInput()
+
+        return correctResults / totalResults * 100
 if __name__ == "__main__":
