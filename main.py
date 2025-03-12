@@ -19,4 +19,20 @@ class KNN:
         self.k = k
         self.trainingDataPath = trainingDataPath
         self.testDataPath = testDataPath
+    def loadCsv(self, path : str) -> list:
+        samples = []
+        try:
+            with open(path, 'r') as f:   
+                data = f.readlines()
+
+                for line in data:
+                    if line == '' or line == '\n':
+                        continue
+                    line = line.strip().split(';')
+                    samples.append(Sample(line[-1], [float(x) for x in line[:-1]]))
+        except Exception as e:
+            print(f"Error: {e}")
+            sys.exit(1)
+        return samples
+
 if __name__ == "__main__":
