@@ -121,3 +121,12 @@ class KNN:
         self.k = originalK
     
 if __name__ == "__main__":
+
+    k = int(input("Enter k: "))
+    trainingDataPath = input("Enter training data path: ")
+    testDataPath = input("Enter test data path: ")
+
+    knn = KNN(k, trainingDataPath, testDataPath)
+    knn.generateChartBasedOnK()
+    knn.start(True)
+
