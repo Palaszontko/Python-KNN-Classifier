@@ -1,3 +1,8 @@
+import math
+import sys
+import io
+import matplotlib.pyplot as plt
+
 class Sample:
     def __init__(self, dataTag : str, vector : list):
         self.dataTag = dataTag
