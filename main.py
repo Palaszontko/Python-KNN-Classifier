@@ -15,6 +15,7 @@ class CalculatedSample:
         return f"Data Tag: {self.dataTag}, Vectors: {self.vector}, Distance: {self.distance}"
     
 class KNN:
+    trainData = []
     def __init__(self, k : int, trainingDataPath : str, testDataPath : str):
         self.k = k
         self.trainingDataPath = trainingDataPath
