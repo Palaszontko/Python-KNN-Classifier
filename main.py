@@ -92,4 +92,32 @@ class KNN:
             closestDataTags = {x.dataTag : sum(1 for item in kClosestGroups if item.dataTag == x.dataTag) for x in kClosestGroups}
             print(f"{'\033[92m'}{sample.dataTag} {'\033[95m'}{max(closestDataTags)}{'\033[0m'}")
 
+    def generateChartBasedOnK(self):
+        chartMap = {}
+        originalK = self.k
+        for i in range(1, 31):
+            self.k = i
+            oriStdout = sys.stdout
+            sys.stdout = io.StringIO()
+
+            accuracy = round(self.start(False), 2)
+
+            sys.stdout = oriStdout
+            chartMap[i] = accuracy
+
+        x = list(chartMap.keys())
+        y = list(chartMap.values())
+
+        plt.figure(figsize=(10, 5))
+        plt.plot(x, y, marker='o', linestyle='-', color='b')
+        plt.xlabel('Number of neighbors (k)')
+        plt.ylabel('Classification accuracy (%)')
+        plt.title('Impact of the number of neighbors (k) on k-NN classification accuracy')
+        plt.grid()
+        plt.xticks(range(1, 30, 2))
+        plt.savefig('KNN_Accuracy_vs_K.png')
+        plt.close()
+
+        self.k = originalK
+    
 if __name__ == "__main__":
