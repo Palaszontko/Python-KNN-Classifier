@@ -127,7 +127,7 @@ class KNN:
         plt.title('Impact of the number of neighbors (k) on k-NN classification accuracy')
         plt.grid()
         plt.xticks(range(1, 30, 2))
-        plt.savefig('KNN_Accuracy_vs_K.png')
+        plt.savefig('out/KNN_Accuracy_vs_K.png')
         plt.close()
 
         self.k = originalK
@@ -135,8 +135,11 @@ class KNN:
 if __name__ == "__main__":
 
     k = int(input("Enter k: "))
-    trainingDataPath = input("Enter training data path: ")
-    testDataPath = input("Enter test data path: ")
+    trainingDataPath = input("Enter training data path: ") # /data/trainingData.csv
+    testDataPath = input("Enter test data path: ")       # /data/testData.csv
+
+    # trainingDataPath = 'data/trainingData.csv'
+    # testDataPath = 'data/testData.csv'
 
     knn = KNN(k, trainingDataPath, testDataPath)
     knn.generateChartBasedOnK()
